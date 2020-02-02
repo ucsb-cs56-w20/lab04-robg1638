@@ -105,8 +105,7 @@ public class OperationsController {
     }
 
     @GetMapping("/multiply")
-    public String getMultiply(Model model) {
-        RatCalcForm ratCalcForm = new RatCalcForm();
+    public String getMultiply(Model model, @Valid RatCalcForm ratCalcForm, BindingResult bindingResult) {
         ratCalcForm.setOp("x");
         if (!bindingResult.hasErrors() && !checkDenominatorErrors(ratCalcForm)) {
             Rational r1 = new Rational(ratCalcForm.getNum1(), ratCalcForm.getDenom1());
