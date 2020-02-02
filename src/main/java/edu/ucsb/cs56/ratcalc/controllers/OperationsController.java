@@ -89,6 +89,14 @@ public class OperationsController {
     public String getSubtractResult(Model model, @Valid RatCalcForm ratCalcForm, BindingResult bindingResult) {
         logger.info("getSubtractResult ratCalcForm=" + ratCalcForm);
         ratCalcForm.setOp("-");
+        if (!bindingResult.hasErrors() && !checkDenominatorErrors(ratCalcForm)) {
+            Rational r1 = new Rational(ratCalcForm.getNum1(), ratCalcForm.getDenom1());
+            Rational r2 = new Rational(ratCalcForm.getNum2(), ratCalcForm.getDenom2());
+            Rational result = Rational.difference(r1, r2);
+            logger.info("r1=" + r1 + " r2=" + r2 + " result=" + result);
+            ratCalcForm.setNumResult(result.getNumerator());
+            ratCalcForm.setDenomResult(result.getDenominator());
+        }
 
         // TODO: Fill this in with appropriate code
         
